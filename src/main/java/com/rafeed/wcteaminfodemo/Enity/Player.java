@@ -55,7 +55,7 @@ public class Player {
     @JoinColumn(
             name = "team_id",
             updatable = false,
-            nullable = false
+            insertable = false
     )
     private Team team;
 

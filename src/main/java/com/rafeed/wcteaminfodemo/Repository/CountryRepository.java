@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Integer> {
     Country getCountryByCountryId(int countryId);
-    Country getCountryByCountryName(String countryName);
+    Country getCountryByCountryNameIgnoreCase(String countryName);
 }

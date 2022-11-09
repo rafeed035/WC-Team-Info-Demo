@@ -21,7 +21,7 @@ public class CountryServiceImplementation implements CountryService {
     //save country
     @Override
     public Country saveCountry(Country country) throws EntityAlreadyExistsException {
-        Country checkCountry = countryRepository.getCountryByCountryName(country.getCountryName());
+        Country checkCountry = countryRepository.getCountryByCountryNameIgnoreCase(country.getCountryName());
         if(checkCountry != null){
             throw new EntityAlreadyExistsException("Country with name: " + country.getCountryName() + " already exist!");
         }
@@ -43,7 +43,7 @@ public class CountryServiceImplementation implements CountryService {
     //get country by name
     @Override
     public Country getCountryByName(String countryName) throws EntityNotFoundException {
-        Country checkCountry = countryRepository.getCountryByCountryName(countryName);
+        Country checkCountry = countryRepository.getCountryByCountryNameIgnoreCase(countryName);
         if(checkCountry == null){
             throw new EntityNotFoundException("Entity with name: " + countryName + " does not exist!");
         }
