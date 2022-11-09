@@ -6,6 +6,7 @@ import com.rafeed.wcteaminfodemo.Enity.Country;
 import com.rafeed.wcteaminfodemo.Enity.Team;
 import com.rafeed.wcteaminfodemo.Repository.CountryRepository;
 import com.rafeed.wcteaminfodemo.Repository.TeamRepository;
+import com.rafeed.wcteaminfodemo.Service.CountryService;
 import com.rafeed.wcteaminfodemo.Service.TeamService;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +17,20 @@ public class TeamServiceImplementation implements TeamService {
 
     private TeamRepository teamRepository;
     private CountryRepository countryRepository;
+    private CountryService countryService;
 
     public TeamServiceImplementation(TeamRepository teamRepository,
-                                     CountryRepository countryRepository) {
+                                     CountryRepository countryRepository,
+                                     CountryService countryService) {
         this.teamRepository = teamRepository;
         this.countryRepository = countryRepository;
+        this.countryService = countryService;
     }
 
     //save
     @Override
     public Team saveTeam(Team team) throws EntityNotFoundException, EntityAlreadyExistsException {
-        Country country = countryRepository.getCountryByCountryNameIgnoreCase(team.getCountry().getCountryName());
+        Country country = countryRepository.getCountryByCountryId(team.getCountryId());
         if(country == null){
             throw new EntityNotFoundException("Country with name: " + team.getCountry().getCountryName() + " does not exist!");
         }

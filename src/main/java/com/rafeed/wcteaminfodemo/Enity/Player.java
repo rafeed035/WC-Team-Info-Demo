@@ -1,5 +1,6 @@
 package com.rafeed.wcteaminfodemo.Enity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,7 @@ public class Player {
     )
     private int playerScore;
 
+    @JsonIgnore
     @ManyToOne(
             targetEntity = Team.class,
             fetch = FetchType.EAGER
@@ -65,6 +67,7 @@ public class Player {
     )
     private int teamId;
 
+    @JsonIgnore
     @OneToOne(
             targetEntity = Country.class,
             fetch = FetchType.EAGER

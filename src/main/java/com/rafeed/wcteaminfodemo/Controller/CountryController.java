@@ -19,7 +19,7 @@ public class CountryController {
     }
 
     @PostMapping("/save")
-    public Country saveCountry(@RequestBody Country country) throws EntityAlreadyExistsException {
+    public Country saveCountry(@RequestBody Country country) throws EntityAlreadyExistsException{
         return countryService.saveCountry(country);
     }
 

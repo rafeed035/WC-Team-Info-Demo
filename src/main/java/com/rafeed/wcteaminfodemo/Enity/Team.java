@@ -1,11 +1,11 @@
 package com.rafeed.wcteaminfodemo.Enity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -47,11 +47,11 @@ public class Team {
 
     @Column(
             name = "team_group",
-            nullable = false,
-            unique = true
+            nullable = false
     )
     private String teamGroup;
 
+    @JsonIgnore
     @OneToOne(
             targetEntity = Country.class,
             fetch = FetchType.EAGER
@@ -68,7 +68,4 @@ public class Team {
             nullable = false
     )
     private int countryId;
-
-    @OneToMany
-    private List<Player> playerList;
 }
