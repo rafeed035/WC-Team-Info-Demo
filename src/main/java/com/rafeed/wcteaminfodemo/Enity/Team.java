@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -50,4 +51,24 @@ public class Team {
             unique = true
     )
     private String teamGroup;
+
+    @OneToOne(
+            targetEntity = Country.class,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(
+            name = "country_id",
+            updatable = false,
+            insertable = false
+    )
+    private Country country;
+
+    @Column(
+            name = "country_id",
+            nullable = false
+    )
+    private int countryId;
+
+//    @OneToMany
+//    private List<Player> playerList;
 }
