@@ -48,22 +48,22 @@ public class Player {
     )
     private int playerScore;
 
-//    @ManyToOne(
-//            targetEntity = Team.class,
-//            fetch = FetchType.EAGER
-//    )
-//    @JoinColumn(
-//            name = "team_id",
-//            updatable = false,
-//            nullable = false
-//    )
-//    private Team team;
-//
-//    @Column(
-//            name = "team_id",
-//            nullable = false
-//    )
-//    private int teamId;
+    @ManyToOne(
+            targetEntity = Team.class,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(
+            name = "team_id",
+            updatable = false,
+            nullable = false
+    )
+    private Team team;
+
+    @Column(
+            name = "team_id",
+            nullable = false
+    )
+    private int teamId;
 //
 //    @OneToOne(
 //            targetEntity = Country.class,

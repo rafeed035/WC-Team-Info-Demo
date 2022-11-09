@@ -69,6 +69,6 @@ public class Team {
     )
     private int countryId;
 
-//    @OneToMany
-//    private List<Player> playerList;
+    @OneToMany
+    private List<Player> playerList;
 }
