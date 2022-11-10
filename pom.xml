@@ -14,7 +14,7 @@
     <name>WC Team Info Demo</name>
     <description>WC Team Info Demo</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
