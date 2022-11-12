@@ -1,0 +1,47 @@
+package com.rafeed.wcteaminfodemo.SecurityConfiguration.Authentication.Controller;
+
+import com.rafeed.wcteaminfodemo.Enity.User;
+import com.rafeed.wcteaminfodemo.SecurityConfiguration.Authentication.RequestAndResponse.AuthenticationRequest;
+import com.rafeed.wcteaminfodemo.SecurityConfiguration.Authentication.RequestAndResponse.AuthenticationResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthenticationController {
+    private AuthenticationManager authenticationManager;
+
+    public AuthenticationController(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationRequest authenticationRequest){
+        try{
+            Authentication authentication =authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getEmail(),
+                            authenticationRequest.getPassword()
+                    )
+            );
+            User user = (User) authentication.getPrincipal();
+            String accessToken = "accessToken";
+            AuthenticationResponse authenticationResponse = new AuthenticationResponse(user.getEmail(), accessToken);
+
+            return ResponseEntity.ok(authenticationResponse);
+
+        }catch (BadCredentialsException badCredentialsException){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+}
