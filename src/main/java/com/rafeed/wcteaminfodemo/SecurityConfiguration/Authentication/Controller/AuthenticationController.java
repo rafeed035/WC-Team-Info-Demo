@@ -3,6 +3,7 @@ package com.rafeed.wcteaminfodemo.SecurityConfiguration.Authentication.Controlle
 import com.rafeed.wcteaminfodemo.Enity.User;
 import com.rafeed.wcteaminfodemo.SecurityConfiguration.Authentication.RequestAndResponse.AuthenticationRequest;
 import com.rafeed.wcteaminfodemo.SecurityConfiguration.Authentication.RequestAndResponse.AuthenticationResponse;
+import com.rafeed.wcteaminfodemo.SecurityConfiguration.JWT.JwtTokenUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,10 +20,14 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-    private AuthenticationManager authenticationManager;
 
-    public AuthenticationController(AuthenticationManager authenticationManager) {
+    private AuthenticationManager authenticationManager;
+    private JwtTokenUtil jwtTokenUtil;
+
+    public AuthenticationController(AuthenticationManager authenticationManager,
+                                    JwtTokenUtil jwtTokenUtil) {
         this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @PostMapping("/login")
@@ -35,7 +40,7 @@ public class AuthenticationController {
                     )
             );
             User user = (User) authentication.getPrincipal();
-            String accessToken = "accessToken";
+            String accessToken = jwtTokenUtil.generateAccessToken(user);
             AuthenticationResponse authenticationResponse = new AuthenticationResponse(user.getEmail(), accessToken);
 
             return ResponseEntity.ok(authenticationResponse);
