@@ -13,41 +13,39 @@ The endpoints are:
 
 For Authentication:
 
-/auth/login      ---> to login and get the access token
+1. /auth/login      ---> to login and get the access token
 
 
 For Country:
 
-/api/v1/country/save        ---> to save
-/api/v1/country/getById     ---> to get country by id
-/api/v1/country/getByName   ---> to get country by name
-/api/v1/country/getAll      ---> to get all countries
-/api/v1/country/update      ---> to update a country
-/api/v1/country/delete      ---> to delete a country
+1. /api/v1/country/save        ---> to save
+2. /api/v1/country/getById     ---> to get country by id
+3. /api/v1/country/getByName   ---> to get country by name
+4. /api/v1/country/getAll      ---> to get all countries
+5. /api/v1/country/update      ---> to update a country
+6. /api/v1/country/delete      ---> to delete a country
 
 
 For Team:
 
-/api/v1/team/save             ---> to save team
-/api/v1/team/getById          ---> to get team  by id
-/api/v1/team/getByName        ---> to get team by name
-/api/v1/team/getByCountry     ---> to get team by country
-/api/v1/team/getAll           ---> to get all teams
-/api/v1/team/update           ---> to update a team
-/api/v1/team/delete           ---> to delete a team
+1. /api/v1/team/save             ---> to save team
+2. /api/v1/team/getById          ---> to get team  by id
+3. /api/v1/team/getByName        ---> to get team by name
+4. /api/v1/team/getByCountry     ---> to get team by country
+5. /api/v1/team/getAll           ---> to get all teams
+6. /api/v1/team/update           ---> to update a team
+7. /api/v1/team/delete           ---> to delete a team
 
 
 For Player:
 
-/api/v1/player/save           ---> to save player
-/api/v1/player/getById        ---> to get player by id
-/api/v1/player/getByName      ---> to get player by name
-/api/v1/player/getByTeam      ---> to get player by team
-/api/v1/player/getByCountry   ---> to get player by country
-/api/v1/player/getByScore     ---> to get player by score
-/api/v1/player/getAll         ---> to get all players
-/api/v1/player/update         ---> to update a player
-/api/v1/player/delete         ---> to delete a player
-
-
+1. /api/v1/player/save           ---> to save player
+2. /api/v1/player/getById        ---> to get player by id
+3. /api/v1/player/getByName      ---> to get player by name
+4. /api/v1/player/getByTeam      ---> to get player by team
+5. /api/v1/player/getByCountry   ---> to get player by country
+6. /api/v1/player/getByScore     ---> to get player by score
+7. /api/v1/player/getAll         ---> to get all players
+8. /api/v1/player/update         ---> to update a player
+9. /api/v1/player/delete         ---> to delete a player
 
