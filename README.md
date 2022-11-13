@@ -49,3 +49,8 @@ For Player:
 8. /api/v1/player/update         ---> to update a player
 9. /api/v1/player/delete         ---> to delete a player
 
+Only the endpoints "/auth/login" and "/api/v1/user/save" can be used without any access token.
+The rest other endpoints need access token as "Authorization" header in the following manner.
+
+"Authorization: Bearer <Token>"
+
