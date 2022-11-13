@@ -52,5 +52,5 @@ For Player:
 Only the endpoints "/auth/login" and "/api/v1/user/save" can be used without any access token.
 The rest other endpoints need access token as "Authorization" header in the following manner.
 
-"Authorization: Bearer <Token>"
+"Authorization: Bearer >token<"
 
