@@ -13,10 +13,5 @@ import javax.validation.constraints.Email;
 public class AuthenticationRequest {
     @Email
     private String email;
-
-    @Length(
-            min = 5,
-            max = 50
-    )
     private String password;
 }

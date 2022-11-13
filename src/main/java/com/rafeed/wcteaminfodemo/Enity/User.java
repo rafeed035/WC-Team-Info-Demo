@@ -35,10 +35,6 @@ public class User implements UserDetails {
     )
     private String email;
 
-    @Length(
-            min = 5,
-            max = 50
-    )
     @Column(
             nullable = false
     )

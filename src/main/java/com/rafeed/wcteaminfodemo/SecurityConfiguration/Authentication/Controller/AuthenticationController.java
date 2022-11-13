@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
 public class AuthenticationController {
 
     private AuthenticationManager authenticationManager;
@@ -30,7 +29,7 @@ public class AuthenticationController {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthenticationRequest authenticationRequest){
         try{
             Authentication authentication =authenticationManager.authenticate(
@@ -43,7 +42,7 @@ public class AuthenticationController {
             String accessToken = jwtTokenUtil.generateAccessToken(user);
             AuthenticationResponse authenticationResponse = new AuthenticationResponse(user.getEmail(), accessToken);
 
-            return ResponseEntity.ok(authenticationResponse);
+            return ResponseEntity.ok().body(authenticationResponse);
 
         }catch (BadCredentialsException badCredentialsException){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
