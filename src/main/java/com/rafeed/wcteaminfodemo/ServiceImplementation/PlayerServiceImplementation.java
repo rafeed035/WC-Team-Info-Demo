@@ -30,18 +30,25 @@ public class PlayerServiceImplementation implements PlayerService {
 
     //save
     @Override
-    public Player savePlayer(Player player) throws EntityAlreadyExistsException {
-        List<Player> checkPlayers = playerRepository.getPlayersByPlayerName(player.getPlayerName());
-        if(checkPlayers.isEmpty()){
-            return playerRepository.save(player);
+    public Player savePlayer(Player player) throws EntityAlreadyExistsException, EntityNotFoundException {
+        Country checkCountry = countryRepository.getCountryByCountryId(player.getCountryId());
+        Team checkTeam = teamRepository.getTeamByTeamId(player.getTeamId());
+        if(checkCountry == null || checkTeam == null){
+            throw new EntityNotFoundException("Team or Country not found!");
         }
         else{
-            for(int i = 0; i < checkPlayers.size(); i++ ){
-                if(checkPlayers.get(i).equals(player)){
-                    throw new EntityAlreadyExistsException("Player already exists!");
-                }
+            List<Player> checkPlayers = playerRepository.getPlayersByPlayerNameIgnoreCase(player.getPlayerName());
+            if(checkPlayers.isEmpty()){
+                return playerRepository.save(player);
             }
-            return playerRepository.save(player);
+            else{
+                for(int i = 0; i < checkPlayers.size(); i++ ){
+                    if(checkPlayers.get(i).equals(player)){
+                        throw new EntityAlreadyExistsException("Player already exists!");
+                    }
+                }
+                return playerRepository.save(player);
+            }
         }
     }
 
@@ -58,7 +65,7 @@ public class PlayerServiceImplementation implements PlayerService {
     //get players by name
     @Override
     public List<Player> getPlayersByName(String playerName) throws EntityNotFoundException {
-        List<Player> checkPlayers = playerRepository.getPlayersByPlayerName(playerName);
+        List<Player> checkPlayers = playerRepository.getPlayersByPlayerNameIgnoreCase(playerName);
         if(checkPlayers.isEmpty()){
             throw new EntityNotFoundException("Players with name: " + playerName + " does not exist!");
         }

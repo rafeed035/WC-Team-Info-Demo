@@ -19,7 +19,7 @@ public class PlayerController {
     }
 
     @PostMapping("/save")
-    public Player savePlayer(@RequestBody Player player) throws EntityAlreadyExistsException {
+    public Player savePlayer(@RequestBody Player player) throws EntityAlreadyExistsException, EntityNotFoundException {
         return playerService.savePlayer(player);
     }
 

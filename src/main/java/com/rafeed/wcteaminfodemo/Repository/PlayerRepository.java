@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
     Player getPlayerByPlayerId(int playerId);
-    List<Player> getPlayersByPlayerName(String playerName);
+    List<Player> getPlayersByPlayerNameIgnoreCase(String playerName);
     List<Player> getPlayersByCountry(Country country);
     List<Player> getPlayersByTeam(Team team);
     List<Player> getPlayersByPlayerScoreGreaterThan(int score);

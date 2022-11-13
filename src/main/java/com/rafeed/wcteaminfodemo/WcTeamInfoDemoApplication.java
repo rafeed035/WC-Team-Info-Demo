@@ -9,5 +9,4 @@ public class WcTeamInfoDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(WcTeamInfoDemoApplication.class, args);
     }
-
 }

@@ -7,7 +7,7 @@ import com.rafeed.wcteaminfodemo.Enity.Player;
 import java.util.List;
 
 public interface PlayerService {
-    Player savePlayer(Player player) throws EntityAlreadyExistsException;
+    Player savePlayer(Player player) throws EntityAlreadyExistsException, EntityNotFoundException;
     Player getPlayerByPlayerId(int playerId) throws EntityNotFoundException;
     List<Player> getPlayersByName(String playerName) throws EntityNotFoundException;
     List<Player> getPlayersByCountry(String countryName) throws EntityNotFoundException;
