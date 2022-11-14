@@ -13,5 +13,4 @@ public interface UserService {
     List<User> getAllUsers();
     User updateUser(int userId, User user) throws EntityNotFoundException;
     void deleteUser(int userId) throws EntityNotFoundException;
-
 }
