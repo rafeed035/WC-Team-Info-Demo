@@ -27,6 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
+    //filter requests
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -58,6 +59,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
+    //get user details from the token
     private UserDetails getUserDetails(String accessToken) {
         User userDetails = new User();
         String[] subjectArray = jwtTokenUtil.getSubject(accessToken).split(",");
@@ -67,6 +69,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         return userDetails;
     }
 
+    //check if the request has Authorization header
     private boolean hasAuthorizationHeader(HttpServletRequest request){
 
         String header = request.getHeader("Authorization");
@@ -78,6 +81,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
     }
 
+    //get access token from the request
     private String getAccessToken(HttpServletRequest request){
         String header = request.getHeader("Authorization");
         String token = header.split(" ")[1].trim();
