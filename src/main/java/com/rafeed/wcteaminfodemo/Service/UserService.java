@@ -12,5 +12,5 @@ public interface UserService {
     User getUserByEmail(String email) throws EntityNotFoundException;
     List<User> getAllUsers();
     User updateUser(int userId, User user) throws EntityNotFoundException;
-    void deleteUser(int userId) throws EntityNotFoundException
+    void deleteUser(int userId) throws EntityNotFoundException;
 }
