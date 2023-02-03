@@ -46,18 +46,27 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        //disable csrf
         http.csrf().disable();
+
+        //set session management to stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        //set unauthorized request exception handler
         http.exceptionHandling().authenticationEntryPoint(
                 (request, response, authException) -> {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                             authException.getMessage());
                 }
         );
+
+        //set permissions to endpoints
         http.authorizeRequests()
                 .antMatchers("/auth/login", "/api/v1/user/save" ).permitAll()
                 .anyRequest().authenticated();
 
+        //add JWT token filter
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
