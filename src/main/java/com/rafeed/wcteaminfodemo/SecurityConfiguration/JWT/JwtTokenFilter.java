@@ -24,65 +24,71 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
-    //filter requests
+    //custom filter chain
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+
+        //check if the request has Authorization header
         if(!hasAuthorizationHeader(request)){
             filterChain.doFilter(request, response);
             return;
         }
 
+        //validate the access token
         String accessToken = getAccessToken(request);
-
         if(!jwtTokenUtil.validateAccessToken(accessToken)){
             filterChain.doFilter(request, response);
             return;
         }
 
+        //set the authentication context
         setAuthenticationContext(accessToken, request);
         filterChain.doFilter(request, response);
     }
 
-    private void setAuthenticationContext(String accessToken,
-                                          HttpServletRequest request) {
-        UserDetails userDetails = getUserDetails(accessToken);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                null);
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-    }
 
-    //get user details from the token
-    private UserDetails getUserDetails(String accessToken) {
-        User userDetails = new User();
-        String[] subjectArray = jwtTokenUtil.getSubject(accessToken).split(",");
-        userDetails.setUserId(Integer.parseInt(subjectArray[0]));
-        userDetails.setEmail(subjectArray[1]);
-
-        return userDetails;
-    }
-
-    //check if the request has Authorization header
-    private boolean hasAuthorizationHeader(HttpServletRequest request){
-
+    //helper method to check if the request has Authorization header
+    private boolean hasAuthorizationHeader(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if(ObjectUtils.isEmpty(header) || !header.startsWith("Bearer")){
+
+        //check if header is empty or the given request starts with Bearer
+        if (ObjectUtils.isEmpty((header)) || !header.startsWith("Bearer")) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
-    //get access token from the request
+    //helper method to extract and return access token from request
     private String getAccessToken(HttpServletRequest request){
         String header = request.getHeader("Authorization");
-        String token = header.split(" ")[1].trim();
-        System.out.println("Access token: " + token);
-        return token;
+        String accessToken = header.split(" ")[1].trim();
+        System.out.println("Access token: " + accessToken);
+        return accessToken;
+    }
+
+    //helper method to set the authentication context
+    private void setAuthenticationContext(String token, HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(token);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                null
+        );
+
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
+    //helper method to extract and return the user details from the access token
+    private UserDetails getUserDetails(String token){
+        User user = new User();
+        String[] subjectArray = jwtTokenUtil.getSubject(token).split(",");
+        user.setUserId(Integer.parseInt(subjectArray[0]));
+        user.setEmail(subjectArray[1]);
+
+        return user;
     }
 }

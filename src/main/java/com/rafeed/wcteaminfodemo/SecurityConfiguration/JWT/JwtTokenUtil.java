@@ -18,6 +18,7 @@ public class JwtTokenUtil {
     @Value("${app.jwt.secret}")
     private String secretKey;
 
+    //generate Access token
     public String generateAccessToken(User user){
         return Jwts.builder()
                 .setSubject(user.getUserId() + "," + user.getEmail())
@@ -28,7 +29,7 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    //
+    //validate the access token
     public boolean validateAccessToken(String token){
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -48,10 +49,12 @@ public class JwtTokenUtil {
         return false;
     }
 
+    //get the subject from the token
     public String getSubject(String token){
         return parseClaims(token).getSubject();
     }
 
+    //extract the claims
     private Claims parseClaims(String token){
         return Jwts.parser()
                 .setSigningKey(secretKey)
