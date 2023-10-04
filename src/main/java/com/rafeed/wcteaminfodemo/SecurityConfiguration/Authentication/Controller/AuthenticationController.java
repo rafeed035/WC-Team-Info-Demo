@@ -29,9 +29,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationRequest authenticationRequest){
-        try{
-            Authentication authentication =authenticationManager.authenticate(
+    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             authenticationRequest.getEmail(),
                             authenticationRequest.getPassword()
@@ -43,7 +43,7 @@ public class AuthenticationController {
 
             return ResponseEntity.ok().body(authenticationResponse);
 
-        }catch (BadCredentialsException badCredentialsException){
+        } catch (BadCredentialsException badCredentialsException) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

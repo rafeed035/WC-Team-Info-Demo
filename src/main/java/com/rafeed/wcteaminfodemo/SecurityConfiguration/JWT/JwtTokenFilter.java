@@ -31,14 +31,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         //check if the request has Authorization header
-        if(!hasAuthorizationHeader(request)){
+        if (!hasAuthorizationHeader(request)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         //validate the access token
         String accessToken = getAccessToken(request);
-        if(!jwtTokenUtil.validateAccessToken(accessToken)){
+        if (!jwtTokenUtil.validateAccessToken(accessToken)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -48,13 +48,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-
     //helper method to check if the request has Authorization header
     private boolean hasAuthorizationHeader(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
 
         //check if header is empty or the given request starts with Bearer
-        if (ObjectUtils.isEmpty((header)) || !header.startsWith("Bearer")) {
+        if (ObjectUtils.isEmpty(header) || !header.startsWith("Bearer")) {
             return false;
         } else {
             return true;
@@ -62,7 +61,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     //helper method to extract and return access token from request
-    private String getAccessToken(HttpServletRequest request){
+    private String getAccessToken(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
         String accessToken = header.split(" ")[1].trim();
         System.out.println("Access token: " + accessToken);
@@ -70,7 +69,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     //helper method to set the authentication context
-    private void setAuthenticationContext(String token, HttpServletRequest request){
+    private void setAuthenticationContext(String token,
+                                          HttpServletRequest request) {
         UserDetails userDetails = getUserDetails(token);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
@@ -83,12 +83,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     //helper method to extract and return the user details from the access token
-    private UserDetails getUserDetails(String token){
+    private UserDetails getUserDetails(String token) {
         User user = new User();
         String[] subjectArray = jwtTokenUtil.getSubject(token).split(",");
         user.setUserId(Integer.parseInt(subjectArray[0]));
         user.setEmail(subjectArray[1]);
-
         return user;
     }
 }

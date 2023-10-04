@@ -23,32 +23,32 @@ public class PlayerController {
         return playerService.savePlayer(player);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/by-id")
     public Player getPlayerByPlayerId(@RequestParam int playerId) throws EntityNotFoundException {
         return playerService.getPlayerByPlayerId(playerId);
     }
 
-    @GetMapping("/getByName")
+    @GetMapping("/by-name")
     public List<Player> getPlayersByName(@RequestParam String playerName) throws EntityNotFoundException {
         return playerService.getPlayersByName(playerName);
     }
 
-    @GetMapping("/getByTeam")
+    @GetMapping("/by-team")
     public List<Player> getPlayersByTeam(@RequestParam String teamName) throws EntityNotFoundException {
         return playerService.getPlayersByTeam(teamName);
     }
 
-    @GetMapping("/getByCountry")
+    @GetMapping("/by-country")
     public List<Player> getPlayersByCountry(@RequestParam String countryName) throws EntityNotFoundException {
         return playerService.getPlayersByCountry(countryName);
     }
 
-    @GetMapping("/getByScore")
+    @GetMapping("/by-score")
     public List<Player> getPlayersByScoreGreaterThan(@RequestParam int score){
         return playerService.getPlayersByScoreGreaterThan(score);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<Player> getAllPlayers(){
         return playerService.getAllPlayers();
     }

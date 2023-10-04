@@ -14,3 +14,6 @@ spring:
 app:
   jwt:
     secret: m@$T3rp@$$
+
+server:
+  port: 8085

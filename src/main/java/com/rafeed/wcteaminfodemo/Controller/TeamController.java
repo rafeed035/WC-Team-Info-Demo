@@ -23,17 +23,17 @@ public class TeamController {
         return teamService.saveTeam(team);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/by-id")
     public Team getTeamById(@RequestParam int teamId) throws EntityNotFoundException {
         return teamService.getTeamById(teamId);
     }
 
-    @GetMapping("/getByName")
+    @GetMapping("/by-name")
     public Team getTeamByName(@RequestParam String teamName) throws EntityNotFoundException {
         return teamService.getTeamByName(teamName);
     }
 
-    @GetMapping("/getByCountry")
+    @GetMapping("/by-country")
     public Team getTeamByCountryName(@RequestParam String countryName) throws EntityNotFoundException {
         return teamService.getTeamByCountry(countryName);
     }
@@ -44,7 +44,7 @@ public class TeamController {
         return teamService.updateTeam(teamId, team);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<Team> getAllTeams(){
         return teamService.getAllTeams();
     }

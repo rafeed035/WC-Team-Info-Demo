@@ -22,12 +22,12 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/by-id")
     public User getUserById(@RequestParam int userId) throws EntityNotFoundException {
         return userService.getUserById(userId);
     }
 
-    @GetMapping("/getByEmail")
+    @GetMapping("/by-email")
     public User getUserByEmail(@RequestParam String email) throws EntityNotFoundException {
         return userService.getUserByEmail(email);
     }
@@ -38,7 +38,7 @@ public class UserController {
         return userService.updateUser(userId, user);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }

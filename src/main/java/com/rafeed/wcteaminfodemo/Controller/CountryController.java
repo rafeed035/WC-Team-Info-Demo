@@ -23,17 +23,17 @@ public class CountryController {
         return countryService.saveCountry(country);
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/by-id")
     public Country getCountryById(@RequestParam int countryId) throws EntityNotFoundException {
         return countryService.getCountryById(countryId);
     }
 
-    @GetMapping("/getByName")
+    @GetMapping("/by-name")
     public Country getCountryByName(@RequestParam String countryName) throws EntityNotFoundException {
         return countryService.getCountryByName(countryName);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<Country> getAllCountries(){
         return countryService.getAllCountries();
     }

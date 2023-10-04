@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
-    private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+    private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000; //24 hours
 
     @Value("${app.jwt.secret}")
     private String secretKey;
@@ -32,7 +32,9 @@ public class JwtTokenUtil {
     //validate the access token
     public boolean validateAccessToken(String token){
         try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token);
             return true;
 
         } catch (ExpiredJwtException expiredJwtException){
@@ -51,7 +53,8 @@ public class JwtTokenUtil {
 
     //get the subject from the token
     public String getSubject(String token){
-        return parseClaims(token).getSubject();
+        return parseClaims(token)
+                .getSubject();
     }
 
     //extract the claims

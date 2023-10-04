@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.http.HttpServletResponse;
 
-
 @EnableWebSecurity
 public class ApplicationSecurityConfig {
 
