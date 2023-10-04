@@ -50,7 +50,7 @@ For Player:
 9. /api/v1/player/delete         ---> to delete a player
 
 
-For Team:
+For User:
 
 1. /api/v1/user/save             ---> to save user
 2. /api/v1/user/by-id          ---> to get user  by id
