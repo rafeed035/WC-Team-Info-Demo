@@ -3,6 +3,7 @@ package com.rafeed.wcteaminfodemo.SecurityConfiguration;
 import com.rafeed.wcteaminfodemo.Repository.UserRepository;
 import com.rafeed.wcteaminfodemo.SecurityConfiguration.JWT.JwtTokenFilter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,9 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 
-import javax.servlet.http.HttpServletResponse;
+import static org.springframework.security.config.Customizer.withDefaults;
 
+@Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig {
 
@@ -46,27 +49,24 @@ public class ApplicationSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        //cors
-        http.cors();
-
-        //disable csrf
-        http.csrf().disable();
-
-        //set session management to stateless
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement((sessions) -> sessions
+                        .requireExplicitAuthenticationStrategy(false)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
 
         //set unauthorized request exception handler
-        http.exceptionHandling().authenticationEntryPoint(
+        http.exceptionHandling((exception)-> exception.authenticationEntryPoint(
                 (request, response, authException) -> {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                             authException.getMessage());
                 }
-        );
+        ));
 
         //set permissions to endpoints
-        http.authorizeRequests()
-                .antMatchers("/auth/login", "/api/v1/user/save" ).permitAll()
-                .anyRequest().authenticated();
+        http.authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/auth/login", "/api/v1/user/save" ).permitAll()
+                                .anyRequest().authenticated())
+                .httpBasic(withDefaults());
 
         //add JWT token filter
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

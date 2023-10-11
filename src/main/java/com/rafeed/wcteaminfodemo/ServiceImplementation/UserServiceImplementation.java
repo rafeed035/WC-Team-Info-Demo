@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class UserServiceImplementation implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
     public UserServiceImplementation(UserRepository userRepository,
