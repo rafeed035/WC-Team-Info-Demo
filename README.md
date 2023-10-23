@@ -3,6 +3,9 @@ This is a project that will store the T20 World Cup participating countries, the
 In this project RESTful services are implemented using Spring Boot. For security, Spring Security and JWT authentication is implemented.
 PostgreSQL is used as the database.
 
+Spring boot version - 2.7.5
+Java Version - jdk17
+
 The Enities are:
 1. Country
 2. Team
